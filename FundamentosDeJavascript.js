@@ -36,14 +36,14 @@ console.log("\nArreglos:");
 console.log(frutasEj);
 console.log("Cantidad:", frutasEj.length);
 
-// Función básica
+// Funcion basica
 function multiplicar(x, y) {
     return x * y;
 }
 console.log("\nFunción multiplicar:");
 console.log("multiplicar(4,5) =", multiplicar(4, 5));
 
-// Retos
+// Retos::
 
 // Reto 1:
 const readline = require('readline').createInterface({ input: process.stdin, output: process.stdout });
@@ -88,4 +88,45 @@ const estudiante = {
     }
 };
 estudiante.mostrarInfo();
-calculadoraInteractiva().then(() => readline.close());
+
+// Reto 4
+function mayorYmenor(arr) {
+    if (!Array.isArray(arr) || arr.length === 0) return { mayor: null, menor: null };
+    let mayor = arr[0], menor = arr[0];
+    for (const n of arr) {
+        if (n > mayor) mayor = n;
+        if (n < menor) menor = n;
+    }
+    return { mayor, menor };
+}
+
+// Reto 5
+async function ingresoDatosUsuario() {
+    console.log("\nReto 5 — Ingreso de datos:");
+    const nombre = await ask("Nombre: ");
+    const edad = parseInt(await ask("Edad: "), 10);
+    const telefono = await ask("Teléfono: ");
+    const peso = parseFloat(await ask("Peso (kg): "));
+
+    console.log("\nDatos ingresados:");
+    console.log(`Nombre: ${nombre}`);
+    console.log(`Edad: ${isNaN(edad) ? "No válido" : edad}`);
+    console.log(`Teléfono: ${telefono}`);
+    console.log(`Peso: ${isNaN(peso) ? "No válido" : peso + " kg"}`);
+}
+
+async function main() {
+
+    console.log("\nReto 4 — Mayor y menor:");
+    const ejemplo = [3, 7, 1, 9, 5];
+    const resultado = mayorYmenor(ejemplo);
+    console.log("Arreglo:", ejemplo);
+    console.log(`Mayor: ${resultado.mayor}, Menor: ${resultado.menor}`);
+
+    await calculadoraInteractiva();
+    await ingresoDatosUsuario();
+
+    readline.close();
+}
+
+main();
